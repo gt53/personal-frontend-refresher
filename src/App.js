@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
 import AccessionTable from 'components/Accession/AccessionTable';
+import SearchBar from 'components/SearchBar/SearchBar';
 
 function App() {
   return (
     <div className="App">
+      <SearchBar />
       <AccessionTable
         accessions={accessions}
       />

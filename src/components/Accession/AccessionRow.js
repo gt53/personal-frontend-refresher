@@ -14,7 +14,7 @@ class AccessionRow extends React.Component {
           </div>
         </td>
         <td>
-          <a href={accession.url}>{accession.title}</a>
+          <a href={accession.url} target="_blank" rel="noopener noreferrer">{accession.title}</a>
           <ul class="metadata">
             <li>
               Accession: {accession.id}
