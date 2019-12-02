@@ -1,4 +1,6 @@
 import React from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import './App.css';
 import AccessionTable from 'components/Accession/AccessionTable';
 import SearchBar from 'components/SearchBar/SearchBar';
@@ -6,10 +8,24 @@ import SearchBar from 'components/SearchBar/SearchBar';
 function App() {
   return (
     <div className="App">
-      <SearchBar />
-      <AccessionTable
-        accessions={accessions}
-      />
+      <Tabs>
+        <TabList>
+          <Tab>Redux Saga View</Tab>
+          <Tab>Redux Epic View</Tab>
+        </TabList>
+        <TabPanel>
+          <SearchBar />
+          <AccessionTable
+            accessions={accessions}
+          />
+        </TabPanel>
+        <TabPanel>
+          <SearchBar />
+          <AccessionTable
+            accessions={accessions}
+          />
+        </TabPanel>
+      </Tabs>
     </div>
   );
 }
