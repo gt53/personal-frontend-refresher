@@ -1,15 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './SearchBar.css';
+import {
+  makeQueryIfNeeded
+} from 'redux/actions';
 
 class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
+  }
+
+  onSearchButtonClick(e) {
+    const { dispatch } = this.props;
+    const query = document.getElementById('search-bar-input').value;
+    dispatch(makeQueryIfNeeded(query));
+  }
+
   render() {
     return (
       <div>
-        <input type="text" size="30" placeholder="Search GeneLab" />
-        <button>Go</button>
+        <input id="search-bar-input" type="text" size="30" placeholder="Search GeneLab" />
+        <button onClick={this.onSearchButtonClick}>Go</button>
       </div>
     );
   }
 }
 
-export default SearchBar;
+const mapStateToProps = (state) => {
+  // TODO: Populate
+  return {
+  };
+};
+
+export default connect(mapStateToProps)(SearchBar);
