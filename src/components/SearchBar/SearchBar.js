@@ -29,8 +29,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state) => {
   // TODO: Populate
-  return {
-  };
+  return state;
 };
 
 export default connect(mapStateToProps)(SearchBar);

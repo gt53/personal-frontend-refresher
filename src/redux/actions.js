@@ -11,7 +11,7 @@ export function receiveSearchResults(query, json) {
   return {
     type: CONSTANTS.RECEIVE_SEARCH_RESULTS,
     query,
-    data: json,
+    hits: json.hits,
   };
 };
 
