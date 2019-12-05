@@ -5,6 +5,8 @@ import {
   makeQueryIfNeeded
 } from 'redux/actions';
 
+const SEARCH_BAR_ID = 'search-bar-input';
+
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +15,14 @@ class SearchBar extends React.Component {
 
   onSearchButtonClick(e) {
     const { dispatch } = this.props;
-    const query = document.getElementById('search-bar-input').value;
+    const query = document.getElementById(SEARCH_BAR_ID).value;
     dispatch(makeQueryIfNeeded(query));
   }
 
   render() {
     return (
       <div>
-        <input id="search-bar-input" type="text" size="30" placeholder="Search GeneLab" />
+        <input id={SEARCH_BAR_ID} type="text" size="30" placeholder="Search GeneLab" />
         <button onClick={this.onSearchButtonClick}>Go</button>
       </div>
     );
@@ -28,7 +30,7 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // TODO: Populate
+  // TODO: Populate when needed for autocomplete
   return state;
 };
 
