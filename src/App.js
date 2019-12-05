@@ -1,17 +1,38 @@
 import React from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import PropTypes from 'prop-types'
+//import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './App.css';
 import { connect } from 'react-redux'
 import AccessionTable from 'components/Accession/AccessionTable';
 import SearchBar from 'components/SearchBar/SearchBar';
 
+/*
+ * TODO
+ *  + Store query in state
+ *  + Don't execute search if query is empty or didn't change
+ *  + Add search status message
+ *  - Define propTypes
+ *  - Organize files into components/containers dirs
+ *  - Store thunk/saga/epic view in state and only render results in proper tab panel
+ */
+
 class App extends React.Component {
   render() {
-    const { accessions } = this.props;
+    const { accessions, queryInProgress, queryComplete } = this.props;
 
     return (
       <div className="App">
+        <SearchBar />
+        {queryInProgress && accessions.length === 0 && <h2>Getting results...</h2>}
+        {queryComplete && accessions.length === 0 && <h2>No results.</h2>}
+        {accessions.length > 0 && (
+        <AccessionTable
+          accessions={accessions}
+        />
+        )}
+      </div>
+    /*
         <Tabs>
           <TabList>
             <Tab>Redux Saga View</Tab>
@@ -35,17 +56,29 @@ class App extends React.Component {
           </TabPanel>
         </Tabs>
       </div>
+      */
     );
   }
 }
 
+/* TODO: Complete this
+App.propTypes = {
+  accessions: PropTypes.array.isRequired,
+  query: PropTypes.string.isRequired,
+  queryInProgress: PropTypes.bool.isRequired,
+  queryComplete: PropTypes.bool.isRequired,
+};
+*/
+
 function mapStateToProps(state) {
-  const { query } = state;
+  const { query, queryInProgress, queryComplete } = state;
   const accessions = state.results || [];
 
   return {
-    query,
     accessions,
+    query,
+    queryInProgress,
+    queryComplete,
   };
 }
 

@@ -2,10 +2,20 @@
 import * as CONSTANTS from '../constants';
 
 function query(state = {}, action) {
+  if (action.type === CONSTANTS.REQUEST_SEARCH_RESULTS) {
+    return Object.assign({}, state, {
+      queryInProgress: true,
+      queryComplete: false,
+    });
+  }
+
   if (action.type === CONSTANTS.RECEIVE_SEARCH_RESULTS) {
     return Object.assign({}, state, {
       resultsCount: action.hits.total,
       results: action.hits.hits,
+      query: action.query,
+      queryInProgress: false,
+      queryComplete: true,
     });
   }
 

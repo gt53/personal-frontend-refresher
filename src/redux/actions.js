@@ -24,9 +24,21 @@ function makeQuery(query) {
   };
 }
 
+function shouldMakeQuery(state, query) {
+  if (!query || query === state.query) {
+    return false;
+  }
+  if (state.queryInProgress) {
+    return false;
+  }
+
+  return true;
+}
+
 export function makeQueryIfNeeded(query) {
   return (dispatch, getState) => {
-    // TODO: Make this conditional based on the query being different than what is in the state
-    return dispatch(makeQuery(query));
+    if (shouldMakeQuery(getState(), query)) {
+      return dispatch(makeQuery(query));
+    }
   };
 };
