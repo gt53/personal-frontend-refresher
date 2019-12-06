@@ -18,6 +18,7 @@ export function receiveSearchResults(query, json) {
 function makeQuery(query) {
   return (dispatch) => {
     dispatch(sendSearchQuery(query));
+    // TODO: Abstract URL creation to util function
     return fetch(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`)
       .then((response) => response.json())
       .then((json) => dispatch(receiveSearchResults(query, json)));

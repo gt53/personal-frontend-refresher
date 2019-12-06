@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './SearchBar.css';
-import {
-  makeQueryIfNeeded
-} from 'redux/actions';
+import { makeQueryIfNeeded } from 'redux/actions';
 
 const SEARCH_BAR_ID = 'search-bar-input';
 
@@ -14,12 +12,14 @@ class SearchBar extends React.Component {
   }
 
   onSearchButtonClick(e) {
-    const { dispatch, sideEffect } = this.props;
+    const { dispatch, sideEffectLib } = this.props;
     const query = document.getElementById(SEARCH_BAR_ID).value;
-    if (sideEffect === 'thunk') {
+    if (sideEffectLib === 'thunk') {
       dispatch(makeQueryIfNeeded(query));
+    } else if (sideEffectLib === 'saga') {
+      dispatch({type: 'SAGA_SEARCH_REQUESTED', payload: {query}});
     } else {
-      console.log(`Side effect type ${sideEffect} not yet implemented`);
+      console.log(`Side effect type ${sideEffectLib} not yet implemented`);
     }
   }
 

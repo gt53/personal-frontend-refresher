@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import AccessionTable from 'components/Accession/AccessionTable';
 import SearchBar from 'components/SearchBar/SearchBar';
 
-const sideEffectTypes = ['thunk', 'saga', 'epic'];
+const sideEffectLibs = ['thunk', 'saga', 'epic'];
 
 class App extends React.Component {
   render() {
@@ -21,14 +21,14 @@ class App extends React.Component {
             <Tab>Redux Saga View</Tab>
             <Tab>Redux Epic View</Tab>
           </TabList>
-          {sideEffectTypes.map((type, index) => {
-            return <TabPanel key={index}>
-              <SearchBar sideEffect={type} />
+          {sideEffectLibs.map((sideEffectLib, index) => (
+            <TabPanel key={index}>
+              <SearchBar sideEffectLib={sideEffectLib} />
               {queryInProgress && accessions.length === 0 && <h2>Getting results...</h2>}
               {queryComplete && accessions.length === 0 && <h2>No results.</h2>}
               {accessions.length > 0 && <AccessionTable accessions={accessions} />}
             </TabPanel>
-          })}
+          ))}
         </Tabs>
       </div>
     );
