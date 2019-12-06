@@ -7,11 +7,12 @@ export function sendSearchQuery(query) {
   };
 };
 
-export function receiveSearchResults(query, json) {
+export function receiveSearchResults(query, json, sideEffectLib) {
   return {
     type: CONSTANTS.RECEIVE_SEARCH_RESULTS,
     query,
     hits: json.hits,
+    sideEffectLib,
   };
 };
 
@@ -21,15 +22,15 @@ function makeQuery(query) {
     // TODO: Abstract URL creation to util function
     return fetch(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`)
       .then((response) => response.json())
-      .then((json) => dispatch(receiveSearchResults(query, json)));
+      .then((json) => dispatch(receiveSearchResults(query, json, 'thunk')));
   };
 }
 
-function shouldMakeQuery(state, query) {
-  if (!query || query === state.query) {
+export function shouldMakeQuery({stateQuery, newQuery, queryInProgress = false}) {
+  if (!newQuery || newQuery === stateQuery) {
     return false;
   }
-  if (state.queryInProgress) {
+  if (queryInProgress) {
     return false;
   }
 
@@ -38,7 +39,14 @@ function shouldMakeQuery(state, query) {
 
 export function makeQueryIfNeeded(query) {
   return (dispatch, getState) => {
-    if (shouldMakeQuery(getState(), query)) {
+    const state = getState();
+    const params = {
+      stateQuery: state.query,
+      newQuery: query,
+      queryInProgress: state.queryInProgress,
+    };
+
+    if (shouldMakeQuery(params)) {
       return dispatch(makeQuery(query));
     }
   };

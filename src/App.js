@@ -11,7 +11,7 @@ const sideEffectLibs = ['thunk', 'saga', 'epic'];
 
 class App extends React.Component {
   render() {
-    const { accessions, queryInProgress, queryComplete } = this.props;
+    const { resultSets, queryInProgress, queryComplete } = this.props;
 
     return (
       <div className="App">
@@ -24,9 +24,9 @@ class App extends React.Component {
           {sideEffectLibs.map((sideEffectLib, index) => (
             <TabPanel key={index}>
               <SearchBar sideEffectLib={sideEffectLib} />
-              {queryInProgress && accessions.length === 0 && <h2>Getting results...</h2>}
-              {queryComplete && accessions.length === 0 && <h2>No results.</h2>}
-              {accessions.length > 0 && <AccessionTable accessions={accessions} />}
+              {queryInProgress && resultSets[sideEffectLib].length === 0 && <h2>Getting results...</h2>}
+              {queryComplete && resultSets[sideEffectLib].length === 0 && <h2>No results.</h2>}
+              {resultSets[sideEffectLib].length > 0 && <AccessionTable accessions={resultSets[sideEffectLib]} />}
             </TabPanel>
           ))}
         </Tabs>
@@ -36,18 +36,25 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  accessions: PropTypes.array.isRequired,
+  resultSets: PropTypes.object.isRequired,
   query: PropTypes.string.isRequired,
   queryInProgress: PropTypes.bool.isRequired,
   queryComplete: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
-  const { query, queryInProgress, queryComplete } = state;
-  const accessions = state.results || [];
+  const { query, queryInProgress, queryComplete } = state; // TODO Move handling of these to lib state object
+  const thunkState = state.thunk || {};
+  const sagaState = state.saga || {};
+  const epicState = state.epic || {};
+  const resultSets = {
+    thunk: thunkState.results || [],
+    saga: sagaState.results || [],
+    epic: epicState.results || [],
+  };
 
   return {
-    accessions,
+    resultSets,
     query,
     queryInProgress,
     queryComplete,

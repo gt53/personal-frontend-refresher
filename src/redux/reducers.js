@@ -17,14 +17,15 @@ function query(state, action) {
   }
 
   if (action.type === CONSTANTS.RECEIVE_SEARCH_RESULTS) {
-    return {
-      ...state,
+    const newState = { ...state };
+    newState[action.sideEffectLib] = {
       resultsCount: action.hits.total,
       results: action.hits.hits,
       query: action.query,
       queryInProgress: false,
       queryComplete: true,
     };
+    return newState;
   }
 
   return state;
