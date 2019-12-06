@@ -14,9 +14,13 @@ class SearchBar extends React.Component {
   }
 
   onSearchButtonClick(e) {
-    const { dispatch } = this.props;
+    const { dispatch, sideEffect } = this.props;
     const query = document.getElementById(SEARCH_BAR_ID).value;
-    dispatch(makeQueryIfNeeded(query));
+    if (sideEffect === 'thunk') {
+      dispatch(makeQueryIfNeeded(query));
+    } else {
+      console.log(`Side effect type ${sideEffect} not yet implemented`);
+    }
   }
 
   render() {
@@ -30,7 +34,7 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // TODO: Populate when needed for autocomplete
+  // TODO: Implement when dealing with state for autocomplete
   return state;
 };
 

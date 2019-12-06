@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-//import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './App.css';
 import { connect } from 'react-redux'
 import AccessionTable from 'components/Accession/AccessionTable';
 import SearchBar from 'components/SearchBar/SearchBar';
+
+const sideEffectTypes = ['thunk', 'saga', 'epic'];
 
 class App extends React.Component {
   render() {
@@ -13,36 +15,22 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <SearchBar />
-        {queryInProgress && accessions.length === 0 && <h2>Getting results...</h2>}
-        {queryComplete && accessions.length === 0 && <h2>No results.</h2>}
-        {accessions.length > 0 && <AccessionTable accessions={accessions} />}
-      </div>
-    /*
         <Tabs>
           <TabList>
+            <Tab>Redux Thunk View</Tab>
             <Tab>Redux Saga View</Tab>
             <Tab>Redux Epic View</Tab>
           </TabList>
-          <TabPanel>
-            <SearchBar />
-            {accessions.length > 0 && (
-            <AccessionTable
-              accessions={accessions}
-            />
-            )}
-          </TabPanel>
-          <TabPanel>
-            <SearchBar />
-            {accessions.length > 0 && (
-            <AccessionTable
-              accessions={accessions}
-            />
-            )}
-          </TabPanel>
+          {sideEffectTypes.map((type, index) => {
+            return <TabPanel key={index}>
+              <SearchBar sideEffect={type} />
+              {queryInProgress && accessions.length === 0 && <h2>Getting results...</h2>}
+              {queryComplete && accessions.length === 0 && <h2>No results.</h2>}
+              {accessions.length > 0 && <AccessionTable accessions={accessions} />}
+            </TabPanel>
+          })}
         </Tabs>
       </div>
-      */
     );
   }
 }
