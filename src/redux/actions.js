@@ -1,9 +1,10 @@
 import * as CONSTANTS from '../constants';
 
-export function sendSearchQuery(query) {
+export function sendSearchQuery(query, sideEffectLib) {
   return {
     type: CONSTANTS.REQUEST_SEARCH_RESULTS,
     query,
+    sideEffectLib,
   };
 };
 
@@ -18,11 +19,11 @@ export function receiveSearchResults(query, json, sideEffectLib) {
 
 function makeQuery(query) {
   return (dispatch) => {
-    dispatch(sendSearchQuery(query));
+    dispatch(sendSearchQuery(query, CONSTANTS.SIDE_EFFECT_LIB_THUNK));
     // TODO: Abstract URL creation to util function
     return fetch(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`)
       .then((response) => response.json())
-      .then((json) => dispatch(receiveSearchResults(query, json, 'thunk')));
+      .then((json) => dispatch(receiveSearchResults(query, json, CONSTANTS.SIDE_EFFECT_LIB_THUNK)));
   };
 }
 

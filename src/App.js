@@ -11,7 +11,7 @@ const sideEffectLibs = ['thunk', 'saga', 'epic'];
 
 class App extends React.Component {
   render() {
-    const { resultSets, queryInProgress, queryComplete } = this.props;
+    const { sideEffectLibStates } = this.props;
 
     return (
       <div className="App">
@@ -21,12 +21,12 @@ class App extends React.Component {
             <Tab>Redux Saga View</Tab>
             <Tab>Redux Epic View</Tab>
           </TabList>
-          {sideEffectLibs.map((sideEffectLib, index) => (
+          {sideEffectLibs.map((lib, index) => (
             <TabPanel key={index}>
-              <SearchBar sideEffectLib={sideEffectLib} />
-              {queryInProgress && resultSets[sideEffectLib].length === 0 && <h2>Getting results...</h2>}
-              {queryComplete && resultSets[sideEffectLib].length === 0 && <h2>No results.</h2>}
-              {resultSets[sideEffectLib].length > 0 && <AccessionTable accessions={resultSets[sideEffectLib]} />}
+              <SearchBar sideEffectLib={lib} />
+              {sideEffectLibStates[lib].queryInProgress && sideEffectLibStates[lib].accessions.length === 0 && <h2>Getting results...</h2>}
+              {sideEffectLibStates[lib].queryComplete && sideEffectLibStates[lib].accessions.length === 0 && <h2>No results.</h2>}
+              {sideEffectLibStates[lib].accessions.length > 0 && <AccessionTable accessions={sideEffectLibStates[lib].accessions} />}
             </TabPanel>
           ))}
         </Tabs>
@@ -36,28 +36,21 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  resultSets: PropTypes.object.isRequired,
-  query: PropTypes.string.isRequired,
-  queryInProgress: PropTypes.bool.isRequired,
-  queryComplete: PropTypes.bool.isRequired,
+  sideEffectLibStates: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-  const { query, queryInProgress, queryComplete } = state; // TODO Move handling of these to lib state object
   const thunkState = state.thunk || {};
   const sagaState = state.saga || {};
   const epicState = state.epic || {};
-  const resultSets = {
-    thunk: thunkState.results || [],
-    saga: sagaState.results || [],
-    epic: epicState.results || [],
+  const sideEffectLibStates = {
+    thunk: { ...thunkState, accessions: thunkState.results || [] },
+    saga: { ...sagaState, accessions: sagaState.results || [] },
+    epic: { ...epicState, accessions: epicState.results || [] },
   };
 
   return {
-    resultSets,
-    query,
-    queryInProgress,
-    queryComplete,
+    sideEffectLibStates,
   };
 }
 

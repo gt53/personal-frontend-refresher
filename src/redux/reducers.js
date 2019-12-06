@@ -9,11 +9,12 @@ function query(state, action) {
   };
 
   if (action.type === CONSTANTS.REQUEST_SEARCH_RESULTS) {
-    return {
-      ...state,
+    const newState = { ...state };
+    newState[action.sideEffectLib] = {
       queryInProgress: true,
       queryComplete: false,
     };
+    return newState;
   }
 
   if (action.type === CONSTANTS.RECEIVE_SEARCH_RESULTS) {

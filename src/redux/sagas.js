@@ -20,9 +20,9 @@ function* executeQuery(action) {
       return;
     }
 
-    yield put(sendSearchQuery(query));
+    yield put(sendSearchQuery(query, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
     const results = yield call(executeQueryApi, query);
-    yield put(receiveSearchResults(query, results, 'saga'));
+    yield put(receiveSearchResults(query, results, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
   } catch (e) {
     yield put({type: 'SEARCH_FAILED', message: e.message});
   }
