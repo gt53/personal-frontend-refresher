@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects'
-import * as CONSTANTS from '../constants';
-import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from 'redux/actions';
+import * as CONSTANTS from './constants';
+import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from './actions';
 
 export const getStateQuery = (state) => state.query;
 

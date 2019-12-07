@@ -5,8 +5,8 @@ import 'react-tabs/style/react-tabs.css';
 import './App.css';
 import { connect } from 'react-redux'
 import AccessionTable from 'components/Accession/AccessionTable';
-import SearchBar from 'components/SearchBar/SearchBar';
-import * as CONSTANTS from './constants';
+import SearchBar from 'containers/SearchBar';
+import * as CONSTANTS from '../constants';
 
 const sideEffectLibs = [CONSTANTS.SIDE_EFFECT_LIB_THUNK, CONSTANTS.SIDE_EFFECT_LIB_SAGA, CONSTANTS.SIDE_EFFECT_LIB_EPIC];
 

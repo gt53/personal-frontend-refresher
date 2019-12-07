@@ -1,5 +1,5 @@
 //import { combineReducers } from 'redux';
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from './constants';
 
 function query(state, action) {
   state = state || {

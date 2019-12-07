@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './SearchBar.css';
-import { makeQueryIfNeeded } from 'redux/thunk';
+import { makeQueryIfNeeded } from '../thunk';
 
 const SEARCH_BAR_ID = 'search-bar-input';
 

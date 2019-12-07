@@ -1,5 +1,5 @@
-import * as CONSTANTS from '../constants';
-import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from 'redux/actions';
+import * as CONSTANTS from './constants';
+import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from './actions';
 
 function makeQuery(query) {
   return (dispatch) => {
