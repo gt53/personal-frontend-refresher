@@ -1,44 +1,29 @@
 import * as CONSTANTS from '../constants';
 
-export function sendSearchQuery(query) {
+export function requestSearchResults(query, sideEffectLib) {
   return {
     type: CONSTANTS.REQUEST_SEARCH_RESULTS,
     query,
+    sideEffectLib,
   };
 };
 
-export function receiveSearchResults(query, json) {
+export function receiveSearchResults(query, json, sideEffectLib) {
   return {
     type: CONSTANTS.RECEIVE_SEARCH_RESULTS,
     query,
     hits: json.hits,
+    sideEffectLib,
   };
 };
 
-function makeQuery(query) {
-  return (dispatch) => {
-    dispatch(sendSearchQuery(query));
-    return fetch(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`)
-      .then((response) => response.json())
-      .then((json) => dispatch(receiveSearchResults(query, json)));
-  };
-}
-
-function shouldMakeQuery(state, query) {
-  if (!query || query === state.query) {
+export function shouldMakeQuery({stateQuery, newQuery, queryInProgress = false}) {
+  if (!newQuery || newQuery === stateQuery) {
     return false;
   }
-  if (state.queryInProgress) {
+  if (queryInProgress) {
     return false;
   }
 
   return true;
 }
-
-export function makeQueryIfNeeded(query) {
-  return (dispatch, getState) => {
-    if (shouldMakeQuery(getState(), query)) {
-      return dispatch(makeQuery(query));
-    }
-  };
-};
