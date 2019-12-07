@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects'
 import * as CONSTANTS from '../constants';
-import { shouldMakeQuery, sendSearchQuery, receiveSearchResults } from 'redux/actions';
+import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from 'redux/actions';
 
 export const getStateQuery = (state) => state.query;
 
@@ -20,7 +20,7 @@ function* executeQuery(action) {
       return;
     }
 
-    yield put(sendSearchQuery(query, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
+    yield put(requestSearchResults(query, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
     const results = yield call(executeQueryApi, query);
     yield put(receiveSearchResults(query, results, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
   } catch (e) {
