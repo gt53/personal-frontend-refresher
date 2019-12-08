@@ -5,9 +5,11 @@ import App from 'containers/App';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import rootSaga from './sagas';
+import rootEpic from './epics';
 
 const store = configureStore();
 store.runSaga(rootSaga);
+store.runEpic(rootEpic);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -17,6 +17,7 @@ export function receiveSearchResults(query, json, sideEffectLib) {
   };
 };
 
+// TODO: Move to utils module
 export function shouldMakeQuery({stateQuery, newQuery, queryInProgress = false}) {
   if (!newQuery || newQuery === stateQuery) {
     return false;

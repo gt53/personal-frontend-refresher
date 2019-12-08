@@ -2,15 +2,12 @@
 import * as CONSTANTS from './constants';
 
 function query(state, action) {
-  state = state || {
-    query: '',
-    queryInProgress: false,
-    queryComplete: false,
-  };
+  state = state || {};
 
   if (action.type === CONSTANTS.REQUEST_SEARCH_RESULTS) {
     const newState = { ...state };
     newState[action.sideEffectLib] = {
+      query: action.query,
       queryInProgress: true,
       queryComplete: false,
     };

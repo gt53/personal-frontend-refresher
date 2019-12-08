@@ -4,7 +4,7 @@ import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from './a
 
 export const getStateQuery = (state) => state.query;
 
-export function executeQueryApi(query) {
+function executeQueryApi(query) {
   // TODO: Abstract URL creation to util function
   return fetch(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`)
     .then((response) => response.json());
