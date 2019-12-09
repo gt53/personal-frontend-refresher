@@ -10,7 +10,7 @@ import * as CONSTANTS from '../constants';
 
 const sideEffectLibs = [CONSTANTS.SIDE_EFFECT_LIB_THUNK, CONSTANTS.SIDE_EFFECT_LIB_SAGA, CONSTANTS.SIDE_EFFECT_LIB_EPIC];
 
-class App extends React.Component {
+export class App extends React.Component {
   render() {
     const { sideEffectLibStates } = this.props;
 

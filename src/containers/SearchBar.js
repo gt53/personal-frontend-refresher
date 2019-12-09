@@ -8,7 +8,7 @@ import makeThunkQuery from '../thunks';
 
 const SEARCH_BAR_ID = 'search-bar-input';
 
-class SearchBar extends React.Component {
+export class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
