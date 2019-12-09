@@ -4,7 +4,7 @@ import './SearchBar.css';
 import * as CONSTANTS from '../constants';
 import { requestSearchResults } from '../actions';
 import { shouldMakeQuery } from '../utils';
-import makeThunkQuery from '../thunk';
+import makeThunkQuery from '../thunks';
 
 const SEARCH_BAR_ID = 'search-bar-input';
 
