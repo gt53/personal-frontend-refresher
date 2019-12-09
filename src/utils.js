@@ -1,3 +1,5 @@
+import * as CONSTANTS from './constants';
+
 /**
  * Determine if a query should be made based on the query
  * being populated and different from the previous value.
@@ -17,4 +19,14 @@ export function shouldMakeQuery({stateQuery, newQuery, queryInProgress = false})
   }
 
   return true;
+}
+
+/**
+ * Build a search URL given a query.
+ *
+ * @param  {String} query - The search term
+ * @return {String}       - The search URL
+ */
+export function buildSearchUrl(query) {
+  return `${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`;
 }

@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import * as CONSTANTS from './constants';
 import { requestSearchResultsType, receiveSearchResults } from './actions';
+import { buildSearchUrl } from './utils';
 
 export const getStateQuery = (state) => state.query;
 
 function executeQueryApi(query) {
-  // TODO: Abstract URL creation to util function
-  return fetch(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`)
+  return fetch(buildSearchUrl(query))
     .then((response) => response.json());
 }
 

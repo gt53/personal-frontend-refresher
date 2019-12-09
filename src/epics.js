@@ -3,12 +3,12 @@ import { map, mergeMap } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import * as CONSTANTS from './constants';
 import { requestSearchResultsType, receiveSearchResults } from './actions';
+import { buildSearchUrl } from './utils';
 
 const sendQueryEpic = (action$) => action$.pipe(
   ofType(requestSearchResultsType(CONSTANTS.SIDE_EFFECT_LIB_EPIC)),
-  mergeMap((action) => 
-    // TODO: Abstract URL creation to util function
-    ajax.getJSON(`${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${action.query}`).pipe(
+  mergeMap((action) =>
+    ajax.getJSON(buildSearchUrl(action.query)).pipe(
       map((response) => receiveSearchResults(action.query, response, CONSTANTS.SIDE_EFFECT_LIB_EPIC))
     )
   )
