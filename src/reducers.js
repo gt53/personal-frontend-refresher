@@ -1,10 +1,9 @@
-//import { combineReducers } from 'redux';
 import * as CONSTANTS from './constants';
 
 function query(state, action) {
   state = state || {};
 
-  if (action.type === CONSTANTS.REQUEST_SEARCH_RESULTS) {
+  if (action.type.startsWith(CONSTANTS.REQUEST_SEARCH_RESULTS)) {
     const newState = { ...state };
     newState[action.sideEffectLib] = {
       query: action.query,
@@ -14,7 +13,7 @@ function query(state, action) {
     return newState;
   }
 
-  if (action.type === CONSTANTS.RECEIVE_SEARCH_RESULTS) {
+  if (action.type.startsWith(CONSTANTS.RECEIVE_SEARCH_RESULTS)) {
     const newState = { ...state };
     newState[action.sideEffectLib] = {
       resultsCount: action.hits.total,
@@ -29,11 +28,4 @@ function query(state, action) {
   return state;
 }
 
-/*
-const rootReducer = combineReducers({
-  query
-});
-*/
-const rootReducer = query;
-
-export default rootReducer;
+export default query;

@@ -1,6 +1,6 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as CONSTANTS from './constants';
-import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from './actions';
+import { requestSearchResultsType, receiveSearchResults } from './actions';
 
 export const getStateQuery = (state) => state.query;
 
@@ -12,15 +12,7 @@ function executeQueryApi(query) {
 
 function* executeQuery(action) {
   try {
-    const { query } = action.payload;
-    const stateQuery = yield select(getStateQuery);
-    const params = { stateQuery, newQuery: query };
-    if (!shouldMakeQuery(params)) {
-      console.log('Skipping saga query intentionally');
-      return;
-    }
-
-    yield put(requestSearchResults(query, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
+    const { query } = action;
     const results = yield call(executeQueryApi, query);
     yield put(receiveSearchResults(query, results, CONSTANTS.SIDE_EFFECT_LIB_SAGA));
   } catch (e) {
@@ -29,7 +21,7 @@ function* executeQuery(action) {
 }
 
 function* root() {
-  yield takeLatest('SAGA_SEARCH_REQUESTED', executeQuery);
+  yield takeLatest(requestSearchResultsType(CONSTANTS.SIDE_EFFECT_LIB_SAGA), executeQuery);
 }
 
 export default root;

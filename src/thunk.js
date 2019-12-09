@@ -1,7 +1,7 @@
 import * as CONSTANTS from './constants';
-import { shouldMakeQuery, requestSearchResults, receiveSearchResults } from './actions';
+import { requestSearchResults, receiveSearchResults } from './actions';
 
-function makeQuery(query) {
+const makeThunkQuery = (query) => {
   return (dispatch) => {
     dispatch(requestSearchResults(query, CONSTANTS.SIDE_EFFECT_LIB_THUNK));
     // TODO: Abstract URL creation to util function
@@ -11,17 +11,4 @@ function makeQuery(query) {
   };
 }
 
-export function makeQueryIfNeeded(query) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const params = {
-      stateQuery: state.query,
-      newQuery: query,
-      queryInProgress: state.queryInProgress,
-    };
-
-    if (shouldMakeQuery(params)) {
-      return dispatch(makeQuery(query));
-    }
-  };
-};
+export default makeThunkQuery;

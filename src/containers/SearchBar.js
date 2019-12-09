@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './SearchBar.css';
-import { makeQueryIfNeeded } from '../thunk';
 import * as CONSTANTS from '../constants';
 import { requestSearchResults } from '../actions';
+import { shouldMakeQuery } from '../utils';
+import makeThunkQuery from '../thunk';
 
 const SEARCH_BAR_ID = 'search-bar-input';
 
@@ -14,18 +15,21 @@ class SearchBar extends React.Component {
   }
 
   onSearchButtonClick(e) {
-    const { dispatch, sideEffectLib } = this.props;
+    const { dispatch, sideEffectLib, sideEffectLibStates } = this.props;
     const query = document.getElementById(SEARCH_BAR_ID).value;
+    const libState = sideEffectLibStates[sideEffectLib];
+    const params = { stateQuery: libState.query, newQuery: query, queryInProgress: libState.queryInProgress };
 
-    // TODO: Clean this up to first determine if a query should be made and then dispatch
+    if (!shouldMakeQuery(params)) {
+      console.log(`Intentionally skipping ${sideEffectLib} query for ${query}`);
+      return;
+    }
 
     if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_THUNK) {
-      dispatch(makeQueryIfNeeded(query));
-    } else if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_SAGA) {
-      dispatch({type: 'SAGA_SEARCH_REQUESTED', payload: {query}}); // TODO: Make type a const
-    } else if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_EPIC) {
-      dispatch(requestSearchResults(query, CONSTANTS.SIDE_EFFECT_LIB_EPIC));
+      return dispatch(makeThunkQuery(query));
     }
+
+    dispatch(requestSearchResults(query, sideEffectLib));
   }
 
   render() {
@@ -39,8 +43,18 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // TODO: Implement when dealing with state for autocomplete
-  return state;
+  const thunkState = state.thunk || {};
+  const sagaState = state.saga || {};
+  const epicState = state.epic || {};
+  const sideEffectLibStates = {
+    thunk: { ...thunkState, },
+    saga: { ...sagaState, },
+    epic: { ...epicState, },
+  };
+
+  return {
+    sideEffectLibStates,
+  };
 };
 
 export default connect(mapStateToProps)(SearchBar);
