@@ -6,8 +6,6 @@ import { requestSearchResults } from '../actions';
 import { shouldMakeQuery } from '../utils';
 import makeThunkQuery from '../thunks';
 
-const SEARCH_BAR_ID = 'search-bar-input';
-
 export class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +14,7 @@ export class SearchBar extends React.Component {
 
   onSearchButtonClick(e) {
     const { dispatch, sideEffectLib, sideEffectLibStates } = this.props;
-    const query = document.getElementById(SEARCH_BAR_ID).value;
+    const query = document.getElementById(CONSTANTS.SEARCH_BAR_ID).value;
     const libState = sideEffectLibStates[sideEffectLib];
     const params = { stateQuery: libState.query, newQuery: query, queryInProgress: libState.queryInProgress };
 
@@ -35,7 +33,7 @@ export class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <input id={SEARCH_BAR_ID} type="text" size="30" placeholder="Search GeneLab" />
+        <input id={CONSTANTS.SEARCH_BAR_ID} type="text" size="30" placeholder="Search GeneLab" />
         <button onClick={this.onSearchButtonClick}>Go</button>
       </div>
     );

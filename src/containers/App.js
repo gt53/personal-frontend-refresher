@@ -18,18 +18,21 @@ export class App extends React.Component {
       <div className="App">
         <Tabs>
           <TabList>
-            <Tab>Redux Thunk View</Tab>
-            <Tab>Redux Saga View</Tab>
-            <Tab>Redux Epic View</Tab>
+            <Tab>Thunk View</Tab>
+            <Tab>Saga View</Tab>
+            <Tab>Epic View</Tab>
           </TabList>
-          {sideEffectLibs.map((lib, index) => (
-            <TabPanel key={index}>
-              <SearchBar sideEffectLib={lib} />
-              {sideEffectLibStates[lib].queryInProgress && sideEffectLibStates[lib].accessions.length === 0 && <h2>Getting results...</h2>}
-              {sideEffectLibStates[lib].queryComplete && sideEffectLibStates[lib].accessions.length === 0 && <h2>No results.</h2>}
-              {sideEffectLibStates[lib].accessions.length > 0 && <AccessionTable accessions={sideEffectLibStates[lib].accessions} />}
-            </TabPanel>
-          ))}
+          {sideEffectLibs.map((lib, index) => {
+            const libState = sideEffectLibStates[lib];
+            return (
+              <TabPanel key={index}>
+                <SearchBar sideEffectLib={lib} />
+                {libState.queryInProgress && libState.accessions.length === 0 && <h2>{CONSTANTS.GETTING_RESULTS}</h2>}
+                {libState.queryComplete && libState.accessions.length === 0 && <h2>{CONSTANTS.NO_RESULTS}</h2>}
+                {libState.accessions.length > 0 && <AccessionTable accessions={libState.accessions} />}
+              </TabPanel>
+            );
+          })}
         </Tabs>
       </div>
     );
