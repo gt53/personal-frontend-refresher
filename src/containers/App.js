@@ -16,6 +16,11 @@ export class App extends React.Component {
 
     return (
       <div className="App">
+        <header className="App-header">
+          <p>
+            NASA GeneLab Data Search
+          </p>
+        </header>
         <Tabs>
           <TabList>
             <Tab>Thunk View</Tab>
