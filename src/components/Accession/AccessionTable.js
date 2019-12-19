@@ -10,7 +10,7 @@ class AccessionTable extends React.Component {
       rows.push(
         <AccessionRow
           accession={accession}
-          key={accession._source.Accession}
+          key={accession.getId()}
         />
       );
     });

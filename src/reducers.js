@@ -1,4 +1,5 @@
 import * as CONSTANTS from './constants';
+import Accession from 'data-models/accession';
 
 function query(state, action) {
   state = state || {};
@@ -17,7 +18,7 @@ function query(state, action) {
     const newState = { ...state };
     newState[action.sideEffectLib] = {
       resultsCount: action.hits.total,
-      results: action.hits.hits,
+      results: action.hits.hits.map((hit) => Accession.create(hit)),
       query: action.query,
       queryInProgress: false,
       queryComplete: true,
