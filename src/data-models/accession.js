@@ -34,7 +34,7 @@ export default class Accession {
    * @return {String}
    */
   getOrganism() {
-    return this.data.organism;
+    return this.data.organism || '';
   }
 
   /**
@@ -43,7 +43,7 @@ export default class Accession {
    * @return {String}
    */
   getId() {
-    return this.data.Accession;
+    return this.data.Accession || '';
   }
 
   /**
@@ -52,16 +52,12 @@ export default class Accession {
    * @return {String}
    */
   getUrl() {
-    let url = this.data['Project Link'];
-    if (url) {
-      return url;
-    }
-
     if (this.data['Authoritative Source URL']) {
       return `${CONSTANTS.GENE_LAB_ROOT_URL}/genelab/accession/${this.data['Authoritative Source URL']}`;
     }
 
-    return '';
+    let url = this.data['Project Link'];
+    return url || '';
   }
 
   /**
