@@ -17,38 +17,38 @@ describe('Accession data model', () => {
 
   it('provides the organism when set', () => {
     const accession = Accession.create(input);
-    expect(accession.getOrganism()).toEqual(SOME_ORGANISM);
+    expect(accession.organism).toEqual(SOME_ORGANISM);
   });
 
   it('provides an empty string when the organism is not set', () => {
     delete input._source.organism;
     const accession = Accession.create(input);
-    expect(accession.getOrganism()).toEqual('');
+    expect(accession.organism).toEqual('');
   });
 
   it('provides the accession ID when set', () => {
     const accession = Accession.create(input);
-    expect(accession.getId()).toEqual(SOME_ID);
+    expect(accession.id).toEqual(SOME_ID);
   });
 
   it('provides an empty string when the accession ID is not set', () => {
     delete input._source.Accession;
     const accession = Accession.create(input);
-    expect(accession.getId()).toEqual('');
+    expect(accession.id).toEqual('');
   });
 
   it('provides the URL when the "Authoritative Source URL" is set', () => {
     const SOME_URL = 'some-url';
     input._source['Authoritative Source URL'] = SOME_URL;
     const accession = Accession.create(input);
-    expect(accession.getUrl().endsWith(SOME_URL)).toBe(true);
+    expect(accession.url.endsWith(SOME_URL)).toBe(true);
   });
 
   it('provides the URL when the "Project Link" is set but the "Authoritative Source URL" is not set', () => {
     const SOME_URL = 'some-url';
     input._source['Project Link'] = SOME_URL;
     const accession = Accession.create(input);
-    expect(accession.getUrl()).toEqual(SOME_URL);
+    expect(accession.url).toEqual(SOME_URL);
   });
 
   it('provides the Authoritative State URL when that value is set and the "Project Link" is also set', () => {
@@ -57,12 +57,12 @@ describe('Accession data model', () => {
     input._source['Project Link'] = SOME_URL_PROJECT;
     input._source['Authoritative Source URL'] = SOME_URL_AUTHORITATIVE;
     const accession = Accession.create(input);
-    expect(accession.getUrl().endsWith(SOME_URL_AUTHORITATIVE)).toBe(true);
+    expect(accession.url.endsWith(SOME_URL_AUTHORITATIVE)).toBe(true);
   });
 
   it('provides an empty string when no URL is set', () => {
     const accession = Accession.create(input);
-    expect(accession.getUrl()).toEqual('');
+    expect(accession.url).toEqual('');
   });
 
 });

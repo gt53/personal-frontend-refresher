@@ -33,7 +33,7 @@ export default class Accession {
    *
    * @return {String}
    */
-  getOrganism() {
+  get organism() {
     return this.data.organism || '';
   }
 
@@ -42,7 +42,7 @@ export default class Accession {
    *
    * @return {String}
    */
-  getId() {
+  get id() {
     return this.data.Accession || '';
   }
 
@@ -51,7 +51,7 @@ export default class Accession {
    *
    * @return {String}
    */
-  getUrl() {
+  get url() {
     if (this.data['Authoritative Source URL']) {
       return `${CONSTANTS.GENE_LAB_ROOT_URL}/genelab/accession/${this.data['Authoritative Source URL']}`;
     }
@@ -65,7 +65,7 @@ export default class Accession {
    *
    * @return {String}
    */
-  getTitle() {
+  get title() {
     return this.data['Project Title'] || this.data['Study Title'] || '';
   }
 
@@ -74,7 +74,7 @@ export default class Accession {
    *
    * @return {String}
    */
-  getDate() {
+  get date() {
     if (this.data["Study Public Release Date"] === undefined) {
       return '';
     }
@@ -88,7 +88,7 @@ export default class Accession {
    *
    * @return {String}
    */
-  getThumbnailUrl() {
+  get thumbnailUrl() {
     return `${CONSTANTS.GENE_LAB_ROOT_URL}${this.data.thumbnail}`;
   }
 }

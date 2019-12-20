@@ -9,22 +9,22 @@ class AccessionRow extends React.Component {
     return (
       <tr>
         <td>
-          {accession.getId()}
+          {accession.id}
           <div>
-            <img src={accession.getThumbnailUrl()} alt="Accession organism" style={{width:"80px"}} />
+            <img src={accession.thumbnailUrl} alt="Accession organism" style={{width:"80px"}} />
           </div>
         </td>
         <td>
-          <a href={accession.getUrl()} target="_blank" rel="noopener noreferrer">{accession.getTitle()}</a>
+          <a href={accession.url} target="_blank" rel="noopener noreferrer">{accession.title}</a>
           <ul className="metadata">
             <li>
-              Accession: {accession.getId()}
+              Accession: {accession.id}
             </li>
             <li>
-              Date: {accession.getDate()}
+              Date: {accession.date}
             </li>
             <li>
-              Organism: {accession.getOrganism()}
+              Organism: {accession.organism}
             </li>
           </ul>
         </td>
