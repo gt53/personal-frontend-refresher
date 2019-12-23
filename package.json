@@ -17,7 +17,7 @@
   "scripts": {
     "start": "NODE_PATH=src react-scripts start",
     "build": "react-scripts build",
-    "test": "NODE_PATH=src react-scripts test",
+    "test": "NODE_PATH=src react-scripts test --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

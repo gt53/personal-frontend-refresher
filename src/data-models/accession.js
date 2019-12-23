@@ -89,6 +89,6 @@ export default class Accession {
    * @return {String}
    */
   get thumbnailUrl() {
-    return `${CONSTANTS.GENE_LAB_ROOT_URL}${this.data.thumbnail}`;
+    return this.data.thumbnail ?  `${CONSTANTS.GENE_LAB_ROOT_URL}${this.data.thumbnail}` : '';
   }
 }

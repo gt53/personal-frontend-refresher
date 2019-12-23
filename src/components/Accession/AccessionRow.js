@@ -1,6 +1,5 @@
 import React from 'react';
 import './AccessionRow.css';
-import * as CONSTANTS from '../../constants';
 
 class AccessionRow extends React.Component {
   render() {
