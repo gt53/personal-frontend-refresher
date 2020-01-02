@@ -5,12 +5,12 @@ import * as CONSTANTS from './constants';
  * being populated and different from the previous value.
  *
  * @param  {Object}  params                   - Call params
- * @prop   {String}  params.stateQuery        - The previous query made, if any
- * @prop   {String}  params.newQuery          - The value for this requested query
- * @prop   {Boolean} [params.queryInProgress] - Flag indicating that a query is already in progress. Defaults to false
+ * @param  {String}  stateQuery               - The previous query made, if any
+ * @param  {String}  newQuery                 - The value for this requested query
+ * @param  {Boolean} [params.queryInProgress] - Flag indicating that a query is already in progress. Defaults to false
  * @return {Boolean}                          - True if a query should be made; false otherwise
  */
-export function shouldMakeQuery({stateQuery, newQuery, queryInProgress = false}) {
+export function shouldMakeQuery(stateQuery: string, newQuery: string, queryInProgress: boolean = false): boolean {
   if (!newQuery || newQuery === stateQuery) {
     return false;
   }
@@ -27,6 +27,6 @@ export function shouldMakeQuery({stateQuery, newQuery, queryInProgress = false})
  * @param  {String} query - The search term
  * @return {String}       - The search URL
  */
-export function buildSearchUrl(query) {
+export function buildSearchUrl(query: string): string {
   return `${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`;
 }

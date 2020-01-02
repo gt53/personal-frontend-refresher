@@ -14,11 +14,10 @@ export class SearchBar extends React.Component {
 
   onSearchButtonClick(e) {
     const { dispatch, sideEffectLib, sideEffectLibStates } = this.props;
-    const query = document.getElementById(CONSTANTS.SEARCH_BAR_ID).value;
+    const query = document.getElementById(CONSTANTS.SEARCH_BAR_ID).value || '';
     const libState = sideEffectLibStates[sideEffectLib];
-    const params = { stateQuery: libState.query, newQuery: query, queryInProgress: libState.queryInProgress };
 
-    if (!shouldMakeQuery(params)) {
+    if (!shouldMakeQuery(libState.query || '', query, libState.queryInProgress)) {
       console.log(`Intentionally skipping ${sideEffectLib} query for ${query}`);
       return;
     }
