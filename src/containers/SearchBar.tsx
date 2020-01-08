@@ -6,15 +6,7 @@ import * as CONSTANTS from '../constants';
 import { requestSearchResults } from '../actions';
 import { shouldMakeQuery } from '../utils';
 import makeThunkQuery from '../thunks';
-
-// TODO: Move this somewhere else so the reducer can use it
-interface State {
-  query?: string;
-  queryInProgress?: boolean;
-  queryComplete?: boolean;
-  resultsCount?: number;
-  //results?: Accession[];
-}
+import { State } from '../reducers';
 
 interface SideEffectLibStates {
   thunk: State;

@@ -3,11 +3,24 @@ import * as CONSTANTS from './constants';
 export const requestSearchResultsType = (sideEffectLib: string): string => `${CONSTANTS.REQUEST_SEARCH_RESULTS}_${sideEffectLib.toUpperCase()}`;
 export const receiveSearchResultsType = (sideEffectLib: string): string => `${CONSTANTS.RECEIVE_SEARCH_RESULTS}_${sideEffectLib.toUpperCase()}`;
 
-export interface RequestSearchResultsAction {
+interface BaseAction {
   type: string;
+}
+
+export interface RequestSearchResultsAction extends BaseAction {
   query: string;
   sideEffectLib: string;
 }
+
+export interface ReceiveSearchResultsAction extends BaseAction {
+  query: string;
+  hits: any;
+  sideEffectLib: string;
+}
+
+// Workaround for TypeScript + Babel problem resulting in exports not being recognized
+export const RequestSearchResultsAction = undefined;
+export const ReceiveSearchResultsAction = undefined;
 
 export function requestSearchResults(query: string, sideEffectLib: string): RequestSearchResultsAction {
   return {
@@ -17,14 +30,7 @@ export function requestSearchResults(query: string, sideEffectLib: string): Requ
   };
 };
 
-export interface ReceiveSearchResultsAction {
-  type: string;
-  query: string;
-  hits: object[];
-  sideEffectLib: string;
-}
-
-export function receiveSearchResults(query: string, json: { hits: [] }, sideEffectLib: string): ReceiveSearchResultsAction {
+export function receiveSearchResults(query: string, json: any, sideEffectLib: string): ReceiveSearchResultsAction {
   return {
     type: receiveSearchResultsType(sideEffectLib),
     query,
