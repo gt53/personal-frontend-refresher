@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { SearchBar } from './SearchBar';
 import { shallow } from 'enzyme';
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from '../common/constants';
 
 describe('<SearchBar />', () => {
   const SOME_QUERY = 'some query';

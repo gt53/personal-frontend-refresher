@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import { shallow } from 'enzyme';
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from '../common/constants';
 
 import SearchBar from 'containers/SearchBar';
 import AccessionTable from 'components/Accession/AccessionTable';
@@ -14,13 +14,13 @@ describe('<App />', () => {
     props = {
       sideEffectLibStates: {
         thunk: {
-          accessions: [],
+          results: [],
         },
         saga: {
-          accessions: [],
+          results: [],
         },
         epic: {
-          accessions: [],
+          results: [],
         },
       },
     };
@@ -34,7 +34,7 @@ describe('<App />', () => {
   it('displays the correct message when a query is in progress', () => {
     props.sideEffectLibStates.thunk = {
       queryInProgress: true,
-      accessions: [],
+      results: [],
     };
     const wrapper = shallow(<App {...props} />);
     expect(wrapper.find('h2').text()).toEqual(CONSTANTS.GETTING_RESULTS);
@@ -43,7 +43,7 @@ describe('<App />', () => {
   it('displays the correct message when a query has no results', () => {
     props.sideEffectLibStates.thunk = {
       queryComplete: true,
-      accessions: [],
+      results: [],
     };
     const wrapper = shallow(<App {...props} />);
     expect(wrapper.find('h2').text()).toEqual(CONSTANTS.NO_RESULTS);
@@ -51,7 +51,7 @@ describe('<App />', () => {
 
   it('renders a results table when a query has results', () => {
     props.sideEffectLibStates.thunk = {
-      accessions: [{}],
+      results: [{}],
     };
     const wrapper = shallow(<App {...props} />);
     expect(wrapper.find(AccessionTable)).toHaveLength(1);
@@ -59,13 +59,13 @@ describe('<App />', () => {
 
   it('renders a results table per tab panel that has query results', () => {
     props.sideEffectLibStates.thunk = {
-      accessions: [{}],
+      results: [{}],
     };
     props.sideEffectLibStates.saga = {
-      accessions: [],
+      results: [],
     };
     props.sideEffectLibStates.epic = {
-      accessions: [{}],
+      results: [{}],
     };
     const wrapper = shallow(<App {...props} />);
     expect(wrapper.find(AccessionTable)).toHaveLength(2);

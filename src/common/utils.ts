@@ -1,4 +1,5 @@
 import * as CONSTANTS from './constants';
+import { State, SideEffectLibStates } from './types';
 
 /**
  * Determine if a query should be made based on the query
@@ -29,4 +30,21 @@ export function shouldMakeQuery(stateQuery: string, newQuery: string, queryInPro
  */
 export function buildSearchUrl(query: string): string {
   return `${CONSTANTS.CORS_ANYWHERE_LOCAL_URL}/${CONSTANTS.GENE_LAB_API_URL}?type=cgene&api_key=${CONSTANTS.API_KEY}&term=${query}`;
+}
+
+/**
+ * Get the state for the thunk/saga/epic app component. The lib state is
+ * an arbitrarily populated object stored at the top level of the app state.
+ */
+export function getSideEffectLibState(sideEffectLibStates: SideEffectLibStates, sideEffectLib: string): State {
+    if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_THUNK) {
+      return sideEffectLibStates.thunk;
+    }
+    if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_SAGA) {
+      return sideEffectLibStates.saga;
+    }
+    if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_EPIC) {
+      return sideEffectLibStates.epic;
+    }
+    throw new Error(`Unrecognized side effect lib: ${sideEffectLib}`);
 }

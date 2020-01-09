@@ -1,9 +1,9 @@
 import { ajax } from 'rxjs/ajax';
 import { map, mergeMap } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
-import * as CONSTANTS from './constants';
+import * as CONSTANTS from './common/constants';
 import { requestSearchResultsType, receiveSearchResults } from './actions';
-import { buildSearchUrl } from './utils';
+import { buildSearchUrl } from './common/utils';
 
 const sendQueryEpic = (action$) => action$.pipe(
   ofType(requestSearchResultsType(CONSTANTS.SIDE_EFFECT_LIB_EPIC)),

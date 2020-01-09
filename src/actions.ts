@@ -1,4 +1,4 @@
-import * as CONSTANTS from './constants';
+import * as CONSTANTS from './common/constants';
 
 export const requestSearchResultsType = (sideEffectLib: string): string => `${CONSTANTS.REQUEST_SEARCH_RESULTS}_${sideEffectLib.toUpperCase()}`;
 export const receiveSearchResultsType = (sideEffectLib: string): string => `${CONSTANTS.RECEIVE_SEARCH_RESULTS}_${sideEffectLib.toUpperCase()}`;

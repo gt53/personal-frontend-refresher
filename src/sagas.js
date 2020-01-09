@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import * as CONSTANTS from './constants';
+import * as CONSTANTS from './common/constants';
 import { requestSearchResultsType, receiveSearchResults } from './actions';
-import { buildSearchUrl } from './utils';
+import { buildSearchUrl } from './common/utils';
 
 export const getStateQuery = (state) => state.query;
 

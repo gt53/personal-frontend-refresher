@@ -1,6 +1,6 @@
-import * as CONSTANTS from './constants';
+import * as CONSTANTS from './common/constants';
 import { requestSearchResults, receiveSearchResults, ReceiveSearchResultsAction } from './actions';
-import { buildSearchUrl } from './utils';
+import { buildSearchUrl } from './common/utils';
 import { Dispatch } from 'redux';
 
 async function makeThunkQuery(dispatch: Dispatch, query: string) {

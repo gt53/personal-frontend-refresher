@@ -1,5 +1,5 @@
 import Accession from './accession';
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from '../common/constants';
 
 describe('Accession data model', () => {
   let input;

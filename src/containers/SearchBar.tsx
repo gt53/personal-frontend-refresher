@@ -2,17 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import './SearchBar.css';
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from '../common/constants';
 import { requestSearchResults } from '../actions';
-import { shouldMakeQuery } from '../utils';
+import { shouldMakeQuery } from '../common/utils';
 import makeThunkQuery from '../thunks';
-import { State } from '../reducers';
-
-interface SideEffectLibStates {
-  thunk: State;
-  saga: State;
-  epic: State;
-}
+import { getSideEffectLibState } from '../common/utils';
+import { SideEffectLibStates } from '../common/types';
 
 interface Props {
   dispatch: Dispatch;
@@ -31,7 +26,7 @@ export class SearchBar extends React.Component<Props, object> {
     const sideEffectLib: string = this.props.sideEffectLib;
     const sideEffectLibStates: SideEffectLibStates = this.props.sideEffectLibStates;
     const query: string = (document.getElementById(CONSTANTS.SEARCH_BAR_ID) as HTMLInputElement).value || '';
-    const libState = getLibState(sideEffectLibStates, sideEffectLib);
+    const libState = getSideEffectLibState(sideEffectLibStates, sideEffectLib);
 
     if (!shouldMakeQuery(libState.query || '', query, libState.queryInProgress)) {
       console.log(`Intentionally skipping ${sideEffectLib} query for ${query}`);
@@ -53,19 +48,6 @@ export class SearchBar extends React.Component<Props, object> {
       </div>
     );
   }
-}
-
-function getLibState(sideEffectLibStates: SideEffectLibStates, sideEffectLib: string): State {
-    if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_THUNK) {
-      return sideEffectLibStates.thunk;
-    }
-    if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_SAGA) {
-      return sideEffectLibStates.saga;
-    }
-    if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_EPIC) {
-      return sideEffectLibStates.epic;
-    }
-    throw new Error(`Unrecognized side effect lib: ${sideEffectLib}`);
 }
 
 const mapStateToProps = (state: SideEffectLibStates) => {

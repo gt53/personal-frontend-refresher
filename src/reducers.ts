@@ -1,17 +1,7 @@
-import * as CONSTANTS from './constants';
+import * as CONSTANTS from './common/constants';
 import Accession from './data-models/accession';
 import { RequestSearchResultsAction, ReceiveSearchResultsAction } from './actions';
-
-export interface State {
-  query?: string;
-  queryInProgress?: boolean;
-  queryComplete?: boolean;
-  resultsCount?: number;
-  results?: Accession[];
-  thunk?: {};
-  saga?: {};
-  epic?: {};
-}
+import { State } from './common/types';
 
 function setLibState(state: State, libName: string, libState: {}) {
   if (libName === CONSTANTS.SIDE_EFFECT_LIB_THUNK) {
