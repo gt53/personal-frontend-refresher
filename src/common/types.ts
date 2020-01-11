@@ -1,15 +1,21 @@
 import Accession from '../data-models/accession';
 
-export interface State {
+export interface SideEffectLibState {
+  query: string;
+  queryInProgress: boolean;
+  queryComplete: boolean;
   resultsCount?: number;
   results?: Accession[];
-  thunk?: {};
-  saga?: {};
-  epic?: {};
+}
+
+export interface State {
+  thunk?: SideEffectLibState;
+  saga?: SideEffectLibState;
+  epic?: SideEffectLibState;
 }
 
 export interface SideEffectLibStates {
-  thunk: State;
-  saga: State;
-  epic: State;
+  thunk: SideEffectLibState;
+  saga: SideEffectLibState;
+  epic: SideEffectLibState;
 }

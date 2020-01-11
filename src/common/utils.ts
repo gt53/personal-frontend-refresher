@@ -1,5 +1,5 @@
 import * as CONSTANTS from './constants';
-import { State, SideEffectLibStates } from './types';
+import { SideEffectLibState, SideEffectLibStates } from './types';
 
 /**
  * Determine if a query should be made based on the query
@@ -36,7 +36,7 @@ export function buildSearchUrl(query: string): string {
  * Get the state for the thunk/saga/epic app component. The lib state is
  * an arbitrarily populated object stored at the top level of the app state.
  */
-export function getSideEffectLibState(sideEffectLibStates: SideEffectLibStates, sideEffectLib: string): State {
+export function getSideEffectLibState(sideEffectLibStates: SideEffectLibStates, sideEffectLib: string): SideEffectLibState {
     if (sideEffectLib === CONSTANTS.SIDE_EFFECT_LIB_THUNK) {
       return sideEffectLibStates.thunk;
     }

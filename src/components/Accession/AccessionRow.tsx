@@ -1,9 +1,15 @@
 import React from 'react';
+import Accession from '../../data-models/accession';
+import { State } from '../../common/types';
 import './AccessionRow.css';
 
-class AccessionRow extends React.Component {
+interface Props {
+  accession: Accession;
+};
+
+class AccessionRow extends React.Component<Props, State> {
   render() {
-    const { accession } = this.props; // Instance of data-models/accession.js
+    const { accession } = this.props;
 
     return (
       <tr>

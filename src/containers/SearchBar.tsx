@@ -7,7 +7,7 @@ import { requestSearchResults } from '../actions';
 import { shouldMakeQuery } from '../common/utils';
 import makeThunkQuery from '../thunks';
 import { getSideEffectLibState } from '../common/utils';
-import { SideEffectLibStates } from '../common/types';
+import { State, SideEffectLibStates } from '../common/types';
 
 interface Props {
   dispatch: Dispatch;
@@ -15,7 +15,7 @@ interface Props {
   sideEffectLibStates: SideEffectLibStates;
 };
 
-export class SearchBar extends React.Component<Props, object> {
+export class SearchBar extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);

@@ -1,9 +1,9 @@
 import * as CONSTANTS from './common/constants';
 import Accession from './data-models/accession';
 import { RequestSearchResultsAction, ReceiveSearchResultsAction } from './actions';
-import { State } from './common/types';
+import { State, SideEffectLibState } from './common/types';
 
-function setLibState(state: State, libName: string, libState: {}) {
+function setLibState(state: State, libName: string, libState: SideEffectLibState) {
   if (libName === CONSTANTS.SIDE_EFFECT_LIB_THUNK) {
     state.thunk = libState;
   } else if (libName === CONSTANTS.SIDE_EFFECT_LIB_SAGA) {
@@ -21,7 +21,7 @@ function query(state: State, action: RequestSearchResultsAction | ReceiveSearchR
   if (action.type.startsWith(CONSTANTS.REQUEST_SEARCH_RESULTS)) {
     const requestSearchResultsAction: RequestSearchResultsAction = (action as RequestSearchResultsAction);
     const newState: State = { ...state };
-    const libState = {
+    const libState: SideEffectLibState = {
       query: requestSearchResultsAction.query,
       queryInProgress: true,
       queryComplete: false,
@@ -33,7 +33,7 @@ function query(state: State, action: RequestSearchResultsAction | ReceiveSearchR
   if (action.type.startsWith(CONSTANTS.RECEIVE_SEARCH_RESULTS)) {
     const receiveSearchResultsAction: ReceiveSearchResultsAction = (action as ReceiveSearchResultsAction);
     const newState: State = { ...state };
-    const libState = {
+    const libState: SideEffectLibState = {
       resultsCount: receiveSearchResultsAction.hits.total,
       results: receiveSearchResultsAction.hits.hits.map((hit: any) => Accession.create(hit)),
       query: action.query,

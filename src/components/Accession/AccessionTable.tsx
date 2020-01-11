@@ -1,12 +1,18 @@
 import React from 'react';
 import AccessionRow from './AccessionRow';
+import Accession from '../../data-models/accession';
+import { State } from '../../common/types';
 import './AccessionTable.css';
 
-class AccessionTable extends React.Component {
-  render() {
-    const rows = [];
+interface Props {
+  accessions: Accession[];
+};
 
-    this.props.accessions.forEach((accession) => {
+class AccessionTable extends React.Component<Props, State> {
+  render() {
+    const rows: JSX.Element[] = [];
+
+    this.props.accessions.forEach((accession: Accession) => {
       rows.push(
         <AccessionRow
           accession={accession}

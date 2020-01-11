@@ -5,7 +5,7 @@ import './App.css';
 import { connect } from 'react-redux'
 import AccessionTable from '../components/Accession/AccessionTable';
 import SearchBar from './SearchBar';
-import { SideEffectLibStates } from '../common/types';
+import { State, SideEffectLibStates } from '../common/types';
 import { getSideEffectLibState } from '../common/utils';
 import * as CONSTANTS from '../common/constants';
 
@@ -15,7 +15,7 @@ interface Props {
   sideEffectLibStates: SideEffectLibStates;
 };
 
-export class App extends React.Component<Props, object> {
+export class App extends React.Component<Props, State> {
   render() {
     const { sideEffectLibStates } = this.props;
 
